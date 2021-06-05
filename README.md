@@ -15,24 +15,22 @@ $ npm i vue2-codemirror-markdown --save
 #### 使用
 ```vue
 <template>
-  <div id="app" :style="appStyle">
-    <div id="editor-main"> 
-       <Vue2MarkdownEditor 
+  <div class="editor-box"> 
+    <Vue2CodemirrorMarkdown 
         v-model="value"
         :indentUnit="2"
         :fullscreen="false"
         :hljsCss="hljsCss"
         :imageUploader="imageUploader"
-        @save="save"/> 
-    </div>
+        @save="save"/>  
   </div>
 </template>
 
 <script>
-import Vue2MarkdownEditor from 'vue2-codemirror-markdown'
+import Vue2CodemirrorMarkdown from 'vue2-codemirror-markdown'
 export default {
     name: 'app',
-    components: { Vue2MarkdownEditor },
+    components: { Vue2CodemirrorMarkdown },
     data() {
         return {
             url: "http://127.0.0.1:82/upload",
@@ -54,6 +52,11 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+.editor-box{
+  height: 100vh;
+}
+</style>
 ```
 
 #### 配置说明
