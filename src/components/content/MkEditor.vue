@@ -243,10 +243,9 @@ export default {
     //监听值变化，再赋值给value
     origin(value) {
       this.$emit("change", value);
-      this.editor.setValue(value);
+      // this.editor.setValue(value);
     },
-    value(value) {
-      console.log(value);
+    value(value) { 
       if (this.origin !== value) {
         this.editor.setValue(value);
       }
@@ -496,6 +495,7 @@ export default {
     },
     clearContent() {
       this.origin = "";
+      this.editor.setValue(this.origin);
     },
     initLang() {
       // TODO

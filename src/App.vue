@@ -247,15 +247,15 @@ export default {
   },
   methods: {
     handleonUploadFile(val) {
-      console.log(val);
+      // console.log(val);
     },
     handleOnDownloadFile(val) {
-      console.log(val);
+      // console.log(val);
     },
     handleOnSave(val) {
       // 获取预览文本
       // console.log(this.value);
-      console.log(val);
+      // console.log(val);
       alert("请在控制台查看！");
     },
     handleOnChange(val) {
