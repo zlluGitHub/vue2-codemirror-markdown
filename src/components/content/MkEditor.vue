@@ -1,5 +1,5 @@
-<style lang="scss" scoped>
-@import url("./index.scss");
+<style lang="scss">
+@import "./index.scss";
 </style>
 <template>
   <div
@@ -7,6 +7,7 @@
     :class="{ 'md-shadow': shadow, 'md-border': !shadow, fullStyle: fullScreenEditFlag }"
   >
     <ToolBar
+      v-if="showToolbar"
       ref="toolbar"
       :themes="themes"
       @operate="operate"
@@ -18,30 +19,36 @@
       @setTheme="setTheme"
       @save="savePreview"
       @clear="clearContent"
-      :toolbar="toolbar"
+      :toolbar="toolbarConfig"
       :imageUploader="config.imageUploader"
       :fontSize="fontSize"
       :editorFontSize="editorFontSize"
     ></ToolBar>
     <div class="mk-editor-container">
-      <div class="mk-editor-left" ref="mkEditorLeft">
-        <textarea ref="editor" id="my-textarea" placeholder="输入数据..."></textarea>
-      </div>
-      <div
-        class="mk-editor-right"
-        ref="mkEditorRight"
-        :class="{ fullStyle: fullScreenFlag }"
-      >
-        <a href="javascript:;" v-if="fullScreenFlag" @click="fullScreen()">
-          <i class="fa fa-window-close-o"></i
-        ></a>
-        <MkPreview
-          :style="{ fontSize: font.preview + 'px' }"
-          :hljsCss="hljsCss"
-          :value="html"
-          ref="markdownBody"
-        ></MkPreview>
-      </div>
+      <split-pane :min-percent="25" :default-percent="defaultPercent" split="vertical">
+        <template slot="paneL">
+          <div class="mk-editor-left" ref="mkEditorLeft">
+            <textarea ref="editor" id="my-textarea" placeholder="输入数据..."></textarea>
+          </div>
+        </template>
+        <template slot="paneR">
+          <div
+            class="mk-editor-right"
+            ref="mkEditorRight"
+            :class="{ fullStyle: fullScreenFlag }"
+          >
+            <a href="javascript:;" v-if="fullScreenFlag" @click="fullScreen()">
+              <i class="fa fa-window-close-o"></i
+            ></a>
+            <MkPreview
+              :style="{ fontSize: font.preview + 'px' }"
+              :hljsCss="hljsCss"
+              :value="html"
+              ref="markdownBody"
+            ></MkPreview>
+          </div>
+        </template>
+      </split-pane>
     </div>
     <div class="loader-modal" v-if="loaderFlag">
       <div class="loader">
@@ -72,6 +79,7 @@ import config from "../../lib/config";
 import ToolBar from "../toolbar/toolbar.vue";
 import MkPreview from "../preview/mk-preview";
 
+import SplitPane from "vue-splitpane";
 export const themes = [
   "3024-day",
   "3024-night",
@@ -131,6 +139,7 @@ export default {
     MkPreview,
     ToolBar,
     // LeContextMenu,
+    SplitPane,
   },
   model: {
     prop: "value", //指向props的参数名
@@ -199,12 +208,15 @@ export default {
     },
     config: {
       type: Object,
-      default: null,
+      default: () => {
+        return config;
+      },
     },
   },
   data() {
     return {
       // config: config,
+      defaultPercent: 50,
       themes: themes,
       placeholders: "", // 占位符
       fullScreenFlag: false,
@@ -259,11 +271,13 @@ export default {
     },
   },
   created() {
+    if (this.toolbar) {
+      this.toolbarConfig = { ...config.toolbar, ...this.toolbar };
+    }
     if (this.config && JSON.stringify(this.config) !== "{}") {
-      this.config = { ...config, ...this.config };
-      console.log(this.config);
-    } else {
-      this.config = config;
+      for (const key in this.config) {
+        config[key] = this.config[key];
+      }
     }
     require(`codemirror/theme/${this.theme}.css`);
     this.initLang();
@@ -272,7 +286,7 @@ export default {
     this.editorFontSize = config.font.editor;
     this.initEditor();
     if (this.imageUploader && JSON.stringify(this.imageUploader) !== "{}") {
-      this.config.imageUploader = this.imageUploader;
+      config.imageUploader = this.imageUploader;
     }
     // 设置主题
     if (localStorage.getItem("theme") === null) {
@@ -302,7 +316,7 @@ export default {
         gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
         dragDrop: true,
         matchBrackets: true,
-      }; 
+      };
       this.editor = CodeMirror.fromTextArea(this.$refs.editor, {
         ...codeConfig,
         ...this.config,
@@ -443,8 +457,7 @@ export default {
     },
     preview(flag) {
       // 开关实时预览
-      this.$refs.mkEditorLeft.style.width = flag ? "50%" : "100%";
-      this.$refs.mkEditorRight.style.left = flag ? "50%" : "100%";
+      this.defaultPercent = this.defaultPercent == 50 ? 100 : 50;
     },
     fullScreen() {
       this.preview(true);
@@ -457,15 +470,15 @@ export default {
     },
     setTheme(theme) {
       require(`codemirror/theme/${theme}.css`);
-
       this.editor.setOption("theme", theme);
       localStorage.setItem("theme", theme);
     },
     savePreview() {
-      this.$emit("save", this.html);
+      this.$emit("save", { markdown: this.origin, html: this.html });
+      this.$emit("on-save", { markdown: this.origin, html: this.html });
     },
     clearContent() {
-      this.value = "";
+      this.origin = "";
     },
     initLang() {
       // TODO
@@ -558,6 +571,7 @@ export default {
       // this.historyPushFlag = true
       this.origin = this.editor.getValue();
       this.html = md.render(this.origin);
+      this.$emit("on-change", { markdown: this.origin, html: this.html });
     },
     // 校验markdown图片标签
     checkMdImgTag() {

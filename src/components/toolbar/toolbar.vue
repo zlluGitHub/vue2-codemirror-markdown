@@ -672,7 +672,7 @@ export default {
     },
     // 选择设置编辑器字体大小
     handleFontSize(size) {
-      this.editorFontSize = size;
+      // this.editorFontSize = size;
       document.querySelector(".CodeMirror-sizer").style.fontSize = size + "px";
       this.handleCloseMarkBox();
     },

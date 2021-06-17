@@ -1,23 +1,22 @@
 <style lang="scss" scoped>
-// @import "./index.scss";
+@import "./index.scss";
 /* @import "../../assets/css/github-markdown.css"; */
 /* @import url("https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"); */
 /* @import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css"); */
 </style>
 <template>
-  <div id="le-markdown-body">
+  <div class="preview-markdown-warp">
     <div class="markdown-body" v-html="html"></div>
-
     <!-- 大图预览 -->
     <!-- <transition name="le-img-preview-animation"> -->
-      <div
-        class="le-img-preview"
-        @click="previewImg = ''"
-        :style="imgPreviewStyle"
-        v-if="previewImg!==''"
-      >
-        <img :src="previewImg" id="le-img-preview-content" alt />
-      </div>
+    <!-- <div
+      class="le-img-preview"
+      @click="previewImg = ''"
+      :style="imgPreviewStyle"
+      v-if="previewImg !== ''"
+    >
+      <img :src="previewImg" id="le-img-preview-content" alt />
+    </div> -->
     <!-- </transition> -->
   </div>
 </template>
@@ -31,16 +30,16 @@ export default {
   props: {
     isMd: {
       type: Boolean,
-      default: false
+      default: false,
     },
     value: {
       type: String,
-      default: ""
+      default: "",
     },
     hljsCss: {
       type: String,
-      default: "github"
-    }
+      default: "github",
+    },
   },
   data() {
     return {
@@ -51,8 +50,8 @@ export default {
       previewImg: "",
       imgPreviewStyle: {
         minWidth: document.documentElement.clientWidth + "px",
-        minHeight: document.documentElement.clientHeight + "px"
-      }
+        minHeight: document.documentElement.clientHeight + "px",
+      },
     };
   },
   watch: {
@@ -67,7 +66,7 @@ export default {
       }
       this.$nextTick().then(() => {
         // setTimeout(function () {
-        this.$el.querySelectorAll(".md-flowchart").forEach(element => {
+        this.$el.querySelectorAll(".md-flowchart").forEach((element) => {
           try {
             let code = element.textContent;
             let chart = flowchart.parse(code);
@@ -91,7 +90,7 @@ export default {
       }
       this.oldStyle = this.currentStyle;
       this.loadCss();
-    }
+    },
   },
   methods: {
     loadCss() {
@@ -117,7 +116,7 @@ export default {
           elements[i].parentNode.removeChild(elements[i]);
         }
       }
-    }
+    },
   },
   created() {},
   mounted() {
@@ -132,24 +131,20 @@ export default {
     this.loadCss();
     // 监听屏幕大小
     window.addEventListener("resize", () => {
-      that.imgPreviewStyle.minWidth =
-        document.documentElement.clientWidth + "px";
-      that.imgPreviewStyle.minHeight =
-        document.documentElement.clientHeight + "px";
+      that.imgPreviewStyle.minWidth = document.documentElement.clientWidth + "px";
+      that.imgPreviewStyle.minHeight = document.documentElement.clientHeight + "px";
     });
     // 监听图片点击
-    this.$el
-      .querySelector(".markdown-body")
-      .addEventListener("click", function(event) {
-        event = event ? event : window.event;
-        let ele = event.srcElement ? event.srcElement : event.target;
-        if (ele.tagName === "IMG") {
-          // 当且仅当点击的是预览区图片且不是预览大图
-          if (ele.id !== "le-img-preview-content") {
-            that.previewImg = ele.src;
-          }
+    this.$el.querySelector(".markdown-body").addEventListener("click", function (event) {
+      event = event ? event : window.event;
+      let ele = event.srcElement ? event.srcElement : event.target;
+      if (ele.tagName === "IMG") {
+        // 当且仅当点击的是预览区图片且不是预览大图
+        if (ele.id !== "le-img-preview-content") {
+          that.previewImg = ele.src;
         }
-      });
-  }
+      }
+    });
+  },
 };
 </script>

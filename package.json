@@ -43,7 +43,8 @@
     "markdown-it-sup": "^1.0.0",
     "markdown-it-task-lists": "^2.1.1",
     "markdown-it-toc": "^1.1.0",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-splitpane": "^1.0.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

@@ -7,9 +7,16 @@
       :hljsCss="hljsCss"
       :imageUploader="imageObj"
       @save="save"
-      :config="{
-        as:true
+      :toolbar="{
+        undo: false, // 撤销
+        redo: false, // 重做
+        bold: false, // 粗体
       }"
+      :config="{
+        lineNumbers: true,
+      }"
+      :showToolbar="true"
+      @on-change="handleOnChange"
     ></mk-editor>
   </div>
 </template>
@@ -239,9 +246,13 @@ export default {
   methods: {
     save: function (val) {
       // 获取预览文本
-      console.log(this.value);
+      // console.log(this.value);
       console.log(val);
       alert("请在控制台查看！");
+    },
+    handleOnChange(val) {
+      console.log(val);
+      // alert("请在控制台查看！");
     },
   },
   mounted() {},
