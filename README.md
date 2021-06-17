@@ -19,7 +19,9 @@ $ npm i vue2-codemirror-markdown --save
         :fullscreen="false"
         :hljsCss="hljsCss"
         :imageUploader="imageObj"
-        @save="save"
+        @on-upload-file="handleonUploadFile"
+        @on-download-file="handleOnDownloadFile"
+        @on-save="handleOnSave"
         :toolbar="{
             undo: true, // 撤销
             redo: true // 重做 
@@ -39,6 +41,7 @@ export default {
     components: { Vue2CodemirrorMarkdown },
     data() {
         return {
+            hljsCss:"vs2015",
             content:"",
             imageObj:{
                 url: "http://127.0.0.1:82/upload",
@@ -51,10 +54,22 @@ export default {
         }
     },
     methods: { 
-        handleOnChange(val) {
+        handleonUploadFile(val) {
+            console.log(val);
+        },
+        handleOnDownloadFile(val) {
+            console.log(val);
+        },
+        handleOnSave(val) {
             // 获取预览文本
-            console.log(value)
-        }
+            // console.log(this.value);
+            console.log(val);
+        alert("请在控制台查看！");
+        },
+        handleOnChange(val) {
+            console.log(val);
+            // alert("请在控制台查看！");
+        },
     }
 }
 </script>
@@ -83,10 +98,12 @@ export default {
 | indentUnit  | 编辑器缩进大小（默认两个空格） | Number  | 2                         |
 
 #### 事件方法
-| 属性      | 返回参数       | 说明                       |
-|:----------|:---------------|:---------------------------|
-| on-save   | markdown，html | 点击菜单上的保存按钮时触发 |
-| on-change | markdown，html | 编辑器内容发上变化时触发   |
+| 属性             | 返回参数       | 说明                       |
+|:-----------------|:---------------|:---------------------------|
+| on-save          | markdown，html | 点击菜单上的保存按钮时触发 |
+| on-change        | markdown，html | 编辑器内容发上变化时触发   |
+| on-upload-file   | markdown       | 点击菜单上的导入按钮时触发 |
+| on-download-file | markdown       | 点击菜单上的导出按钮时触发 |
 
 
 #### 菜单栏配置配置
@@ -125,6 +142,8 @@ toolbar: {
     fullScreen: true, // 全窗口预览
     preview: true,  // 实时预览
     save: true,  // 保存预览的html文本
+    upload: true, //文件导入
+    download: true //文件导出 
 }
 ```
  

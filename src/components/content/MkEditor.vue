@@ -19,6 +19,8 @@
       @setTheme="setTheme"
       @save="savePreview"
       @clear="clearContent"
+      @on-upload-file="handlOnUploadFile"
+      @on-download-file="handlOnDownloadFile"
       :toolbar="toolbarConfig"
       :imageUploader="config.imageUploader"
       :fontSize="fontSize"
@@ -80,6 +82,7 @@ import ToolBar from "../toolbar/toolbar.vue";
 import MkPreview from "../preview/mk-preview";
 
 import SplitPane from "vue-splitpane";
+import fileSaver from "file-saver";
 export const themes = [
   "3024-day",
   "3024-night",
@@ -240,8 +243,10 @@ export default {
     //监听值变化，再赋值给value
     origin(value) {
       this.$emit("change", value);
+      this.editor.setValue(value);
     },
     value(value) {
+      console.log(value);
       if (this.origin !== value) {
         this.editor.setValue(value);
       }
@@ -299,6 +304,18 @@ export default {
     }
   },
   methods: {
+    handlOnUploadFile(val) {
+      this.origin = val;
+      this.$emit("on-upload-file", val);
+    },
+    handlOnDownloadFile() {
+      let fileName = "markdown.md";
+      let blob = new Blob([this.origin], {
+        type: "text/plain;charset=utf-8",
+      });
+      fileSaver(blob, fileName);
+      this.$emit("on-download-file", this.origin);
+    },
     initEditor() {
       // 初始化
       let that = this;

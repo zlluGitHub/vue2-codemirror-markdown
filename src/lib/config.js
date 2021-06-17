@@ -64,6 +64,8 @@ const config = {
     save: true,  // 保存预览的html文本
     // download: true
     fontSize: true, //代码字体大小 
+    upload: true, //文件导入
+    download: true, //文件导出 
   }
 }
 export default config

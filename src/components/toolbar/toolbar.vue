@@ -158,7 +158,22 @@
             </li>
           </ol>
         </li>
-
+        <li v-if="toolbar.fontSize">
+          <a href="javascript:;" title="字体大小" @click.stop="isFontSize = true">
+            <i class="fa fa-font" name="字体大小"></i>
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ol v-if="isFontSize">
+            <li
+              v-for="(item, i) in fontSize"
+              :key="'w' + i"
+              :class="[{ active: item === editorFontSize }]"
+              @click.stop="handleFontSize(item)"
+            >
+              <a href="javascript:;" :title="item"> {{ item }} px </a>
+            </li>
+          </ol>
+        </li>
         <li class="divider le-align-tools" v-if="dividers[1]"></li>
         <li v-if="toolbar.alignLeft" class="le-align-tools">
           <a
@@ -284,22 +299,7 @@
           </a>
         </li>
         <li class="divider"></li>
-        <li v-if="toolbar.fontSize">
-          <a href="javascript:;" title="字体大小" @click.stop="isFontSize = true">
-            <i class="fa fa-font" name="字体大小"></i>
-            <i class="fa fa-caret-down"></i>
-          </a>
-          <ol v-if="isFontSize">
-            <li
-              v-for="(item, i) in fontSize"
-              :key="'w' + i"
-              :class="[{ active: item === editorFontSize }]"
-              @click.stop="handleFontSize(item)"
-            >
-              <a href="javascript:;" :title="item"> {{ item }} px </a>
-            </li>
-          </ol>
-        </li>
+
         <li v-if="toolbar.skin" class="skin">
           <a href="javascript:;" title="皮肤" @click.stop="selectSkin">
             <i class="fa fa-magic" name="skin"></i>
@@ -317,17 +317,7 @@
           </ol>
           <!-- <div class="dropdown-content" v-if="skinFlag"></div> -->
         </li>
-        <li class="divider"></li>
-        <li v-if="toolbar.save">
-          <a href="javascript:;" title="保存">
-            <i class="fa fa-save" name="save" @click.stop="save()"></i>
-          </a>
-        </li>
-        <li v-if="toolbar.clear">
-          <a href="javascript:;" title="清空">
-            <i class="fa fa-trash-o" name="clear" @click.stop="clear()"></i>
-          </a>
-        </li>
+        <!-- <li class="divider"></li> -->
       </ul>
       <ul class="mk-editor-tools">
         <!-- <li class="divider"  v-if="dividers[3]"></li> -->
@@ -345,6 +335,27 @@
             ></i>
           </a>
         </li>
+        <li v-if="toolbar.save">
+          <a href="javascript:;" title="保存" @click.stop="save">
+            <i class="fa fa-save" name="save"></i>
+          </a>
+        </li>
+        <li v-if="toolbar.clear">
+          <a href="javascript:;" title="清空" @click.stop="clear">
+            <i class="fa fa-trash-o" name="clear"></i>
+          </a>
+        </li>
+        <li v-if="toolbar.upload">
+          <a href="javascript:;" title="导入" @click.stop="importFile">
+            <i class="fa fa-upload" name="clear"></i>
+          </a>
+        </li>
+        <li v-if="toolbar.download">
+          <a href="javascript:;" title="导出" @click.stop="downloadFile">
+            <i class="fa fa-download" name="clear"></i>
+          </a>
+        </li>
+
         <li v-if="toolbar.fullScreenEdit">
           <a
             href="javascript:;"
@@ -502,12 +513,22 @@
       v-if="isTitleShow || isImgShow || isFontSize || isSkinFlag"
       @click.stop="handleCloseMarkBox"
     ></div>
+
+    <!-- 导入文件 -->
+    <input
+      type="file"
+      name="upload"
+      ref="upload"
+      accept=".md"
+      style="display: none"
+    />
     <!-- </transition> -->
   </div>
 </template>
 <script>
 import { keydownListener } from "../../lib/core/keydown-listener";
 import { uploadImg } from "../../lib/utils/upload";
+
 export default {
   name: "mk-toolbar",
   props: ["toolbar", "themes", "imageUploader", "fontSize", "editorFontSize"],
@@ -614,7 +635,7 @@ export default {
     },
     //插入上传图片
     updateInsertImg() {
-      console.log(this.imageUploader);
+      // console.log(this.imageUploader);
       uploadImg(this.imageUploader, (res) => {
         console.log(res);
         if (res.code === 200) {
@@ -664,6 +685,55 @@ export default {
         // 清除
         this.$emit("clear");
       }
+    },
+    // 导入
+    importFile() {
+      let input = this.$refs.upload;
+      console.log(input);
+      input.click();
+      input.onchange = () => {
+        if (input.files && input.files.length > 0 && input.files[0].size > 0) {
+          //支持chrome IE10
+          if (window.FileReader) {
+            let file = input.files[0];
+            // let filename = file.name.split(".")[0];
+            let reader = new FileReader();
+            reader.onloadend = (evt) => {
+              // if (evt.target.readyState == FileReader.DONE) {
+              // console.log(evt.target.result);
+              this.$emit("on-upload-file", evt.target.result);
+              // } else {
+              //   console.log("error");
+              // }
+            };
+            // 包含中文内容用gbk编码
+            reader.readAsText(file, "UTF-8");
+          }
+          //支持IE 7 8 9 10
+          else if (typeof window.ActiveXObject != "undefined") {
+            let xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+            xmlDoc.async = false;
+            xmlDoc.load(input.value);
+            // console.log(xmlDoc.xml);
+            this.$emit("on-upload-file", xmlDoc.xml);
+          }
+          //支持FF
+          else if (document.implementation && document.implementation.createDocument) {
+            let xmlDoc = document.implementation.createDocument("", "", null);
+            xmlDoc.async = false;
+            xmlDoc.load(input.value);
+            // console.log(xmlDoc.xml);
+            this.$emit("on-upload-file", xmlDoc.xml);
+          } else {
+            this.$emit("on-upload-file", "该浏览器暂不支持导入文件！");
+            console.log("error");
+          }
+        }
+      };
+    },
+    // 导出文件
+    downloadFile() {
+      this.$emit("on-download-file");
     },
     // 选择主题
     selectTheme(theme) {

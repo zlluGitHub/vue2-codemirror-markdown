@@ -1,12 +1,14 @@
 <template>
   <div id="app" :style="appStyle">
     <mk-editor
-      v-model="value"
+      v-model="content"
       :indentUnit="2"
       :fullscreen="false"
       :hljsCss="hljsCss"
       :imageUploader="imageObj"
-      @save="save"
+      @on-upload-file="handleonUploadFile"
+      @on-download-file="handleOnDownloadFile"
+      @on-save="handleOnSave"
       :toolbar="{
         undo: true, // 撤销
         redo: true, // 重做
@@ -27,7 +29,7 @@ export default {
   data() {
     return {
       hljsCss: "vs2015",
-      value:
+      content:
         "@[TOC](导航)\n" +
         "Markdown 语法简介\n" +
         "# 字符效果、分隔线\n" +
@@ -244,7 +246,13 @@ export default {
     };
   },
   methods: {
-    save: function (val) {
+    handleonUploadFile(val) {
+      console.log(val);
+    },
+    handleOnDownloadFile(val) {
+      console.log(val);
+    },
+    handleOnSave(val) {
       // 获取预览文本
       // console.log(this.value);
       console.log(val);
