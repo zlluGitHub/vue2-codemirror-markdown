@@ -8,9 +8,9 @@
       :imageUploader="imageObj"
       @save="save"
       :toolbar="{
-        undo: false, // 撤销
-        redo: false, // 重做
-        bold: false, // 粗体
+        undo: true, // 撤销
+        redo: true, // 重做
+        bold: true, // 粗体
       }"
       :config="{
         lineNumbers: true,
