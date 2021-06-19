@@ -604,8 +604,12 @@ export default {
       //   }, 200);
       // }
       // this.historyPushFlag = true
-      this.origin = this.editor.getValue();
-      this.html = md.render(this.origin);
+      this.origin = this.editor.getValue(); 
+      this.html = md.render(
+        this.origin.indexOf("@[TOC]") > -1||this.origin.indexOf("@[toc]") > -1
+          ? this.origin
+          : "@[TOC](文章目录)\n" + this.origin
+      );
       this.$emit("on-change", {
         markdown: this.origin,
         html: this.html,

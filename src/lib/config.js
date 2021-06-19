@@ -14,7 +14,7 @@ const config = {
     data: {},
     header: null,
     onChange: (data) => {
-      console.log(data);
+      // console.log(data);
     }
     // custom: false,
     // fileType: '',

@@ -652,7 +652,7 @@ export default {
     updateInsertImg() {
       // console.log(this.imageUploader);
       uploadImg(this.imageUploader, (res) => {
-        console.log(res);
+        // console.log(res);
         if (res.code === 200) {
           this.insertImg(res);
         } else {
@@ -721,7 +721,7 @@ export default {
     // 导入
     importFile() {
       let input = this.$refs.upload;
-      console.log(input);
+      // console.log(input);
       input.click();
       input.onchange = () => {
         if (input.files && input.files.length > 0 && input.files[0].size > 0) {
