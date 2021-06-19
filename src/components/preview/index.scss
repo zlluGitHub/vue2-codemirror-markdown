@@ -15,16 +15,20 @@
 .preview-markdown-warp {
     width: 100%;
     height: 100%;
+    .markdown-body{
+        padding-top: 0; 
+    }
     .toc-warp {
         // position: relative;
         padding-right: 300px;
         /deep/ .toc-box {
+            display: none;
             position: absolute;
             top: 0px;
             bottom: 0;
             right: 0px;
             overflow-y: auto;
-            width: 250px;
+            width: 270px;
         }
     }
 }

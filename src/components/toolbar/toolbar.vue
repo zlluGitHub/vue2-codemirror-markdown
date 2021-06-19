@@ -317,34 +317,7 @@
           </ol>
           <!-- <div class="dropdown-content" v-if="skinFlag"></div> -->
         </li>
-        <!-- <li class="divider"></li> -->
-      </ul>
-      <ul class="mk-editor-tools">
-        <!-- <li class="divider"  v-if="dividers[3]"></li> -->
-        <li v-if="toolbar.preview">
-          <a
-            href="javascript:;"
-            :title="
-              previewFlag ? '关闭实时预览（Ctrl+Alt+P）' : '打开实时预览（Ctrl+Alt+P）'
-            "
-            @click.stop="preview()"
-          >
-            <i
-              :class="{ 'fa fa-eye-slash': previewFlag, 'fa fa-eye': !previewFlag }"
-              name="preview"
-            ></i>
-          </a>
-        </li>
-        <li v-if="toolbar.save">
-          <a href="javascript:;" title="保存" @click.stop="save">
-            <i class="fa fa-save" name="save"></i>
-          </a>
-        </li>
-        <li v-if="toolbar.clear">
-          <a href="javascript:;" title="清空" @click.stop="clear">
-            <i class="fa fa-trash-o" name="clear"></i>
-          </a>
-        </li>
+        <li class="divider"></li>
         <li v-if="toolbar.upload">
           <a href="javascript:;" title="导入" @click.stop="importFile">
             <i class="fa fa-upload" name="clear"></i>
@@ -355,7 +328,52 @@
             <i class="fa fa-download" name="clear"></i>
           </a>
         </li>
+        <li class="divider"></li>
 
+        <li v-if="toolbar.clear">
+          <a href="javascript:;" title="清空" @click.stop="clear">
+            <i class="fa fa-trash-o" name="clear"></i>
+          </a>
+        </li>
+        <li v-if="toolbar.save">
+          <a href="javascript:;" title="保存" @click.stop="save">
+            <i class="fa fa-save" name="save"></i>
+          </a>
+        </li>
+      </ul>
+      <ul class="mk-editor-tools">
+        <!-- <li class="divider"  v-if="dividers[3]"></li> -->
+        <li v-if="toolbar.preview">
+          <a
+            href="javascript:;"
+            :title="
+              previewFlag ? '关闭实时预览（Ctrl+Alt+P）' : '打开实时预览（Ctrl+Alt+P）'
+            "
+            @click.stop="preview"
+          >
+            <i
+              :class="{ 'fa fa-eye-slash': previewFlag, 'fa fa-eye': !previewFlag }"
+              name="preview"
+            ></i>
+          </a>
+        </li>
+        <li v-if="toolbar.toc && isToc">
+          <a
+            href="javascript:;"
+            :title="isTocFlag ? '关闭目录' : '打开目录'"
+            @click.stop="handleToc"
+          >
+            <i
+              :class="{ 'fa fa-outdent': isTocFlag, 'fa fa-indent': !isTocFlag }"
+              name="toc"
+            ></i>
+          </a>
+        </li>
+        <li v-if="toolbar.fullScreen">
+          <a href="javascript:;" title="全窗口预览（Ctrl+Alt+F）">
+            <i class="fa fa-desktop" name="fullScreen" @click.stop="fullScreen()"></i>
+          </a>
+        </li>
         <li v-if="toolbar.fullScreenEdit">
           <a
             href="javascript:;"
@@ -373,11 +391,6 @@
               }"
               name="fullScreenEdit"
             ></i>
-          </a>
-        </li>
-        <li v-if="toolbar.fullScreen">
-          <a href="javascript:;" title="全窗口预览（Ctrl+Alt+F）">
-            <i class="fa fa-desktop" name="fullScreen" @click.stop="fullScreen()"></i>
           </a>
         </li>
       </ul>
@@ -515,13 +528,7 @@
     ></div>
 
     <!-- 导入文件 -->
-    <input
-      type="file"
-      name="upload"
-      ref="upload"
-      accept=".md"
-      style="display: none"
-    />
+    <input type="file" name="upload" ref="upload" accept=".md" style="display: none" />
     <!-- </transition> -->
   </div>
 </template>
@@ -539,6 +546,8 @@ export default {
       isImgShow: false,
       isFontSize: false,
       isSkinFlag: false,
+      isTocFlag: false,
+      isToc: false,
 
       insertImgFlag: false,
       insertTableFlag: false,
@@ -560,6 +569,12 @@ export default {
     };
   },
   watch: {
+    isTocFlag: {
+      handler(val, oldVal) {
+        this.tocActive(val);
+      },
+      immediate: true,
+    },
     insertImgFlag: function (val) {
       if (val) {
         document.body.style.overflow = "hidden";
@@ -659,6 +674,23 @@ export default {
         this.$emit("preview", this.previewFlag);
       }
     },
+    //目录
+    handleToc() {
+      if (this.toolbar.toc) {
+        this.isTocFlag = !this.isTocFlag;
+        // this.$emit("tocFlag", this.isTocFlag);
+      }
+    },
+    tocActive(val) {
+      val = val ? val : this.isTocFlag;
+      this.$nextTick(() => {
+        let markdownBody = document.querySelector(".markdown-body");
+        let tocBox = document.querySelector(".toc-box");
+        if (markdownBody) markdownBody.style.paddingRight = val ? "" : "0px";
+        if (tocBox) tocBox.style.display = val ? "block" : "none";
+      });
+    },
+
     //全屏预览
     fullScreen() {
       if (this.toolbar.fullScreen) {

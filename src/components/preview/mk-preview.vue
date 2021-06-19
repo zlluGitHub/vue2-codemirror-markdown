@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import flowchart from "flowchart.js";
+// import flowchart from "flowchart.js";
 import { toKebabCase, hljsCssConfig } from "../../lib/core/hljs-plugn";
 import md from "../../lib/core/markdown";
 
@@ -51,7 +51,11 @@ export default {
     hljsCss: {
       type: String,
       default: "github",
-    }
+    },
+    tocActive: {
+      type: Function,
+      default: () => {},
+    },
   },
   data() {
     return {
@@ -69,7 +73,6 @@ export default {
   },
   watch: {
     value(value) {
-     
       this.content = value;
     },
     content(value) {
@@ -78,20 +81,25 @@ export default {
       } else {
         this.html = value;
       }
-      this.$nextTick().then(() => {
-        // setTimeout(function () {
-        this.$el.querySelectorAll(".md-flowchart").forEach((element) => {
-          try {
-            let code = element.textContent;
-            let chart = flowchart.parse(code);
-            element.textContent = "";
-            chart.drawSVG(element);
-          } catch (e) {
-            element.outerHTML = `<pre>error: ${e}</pre>`;
-          }
-        });
-        // }, 3000)
+      this.$nextTick(() => {
+        if (this.tocActive) this.tocActive();
       });
+      // console.log(this.html);
+      // this.$nextTick().then(() => {
+      //   this.tocActive();
+      //   // setTimeout(function () {
+      //   // this.$el.querySelectorAll(".md-flowchart").forEach((element) => {
+      //   //   try {
+      //   //     let code = element.textContent;
+      //   //     let chart = flowchart.parse(code);
+      //   //     element.textContent = "";
+      //   //     chart.drawSVG(element);
+      //   //   } catch (e) {
+      //   //     element.outerHTML = `<pre>error: ${e}</pre>`;
+      //   //   }
+      //   // });
+      //   // }, 3000)
+      // });
     },
     hljsCss(value) {
       if (this.oldStyle !== "") {
@@ -149,16 +157,16 @@ export default {
       that.imgPreviewStyle.minHeight = document.documentElement.clientHeight + "px";
     });
     // 监听图片点击
-    this.$el.querySelector(".markdown-body").addEventListener("click", function (event) {
-      event = event ? event : window.event;
-      let ele = event.srcElement ? event.srcElement : event.target;
-      if (ele.tagName === "IMG") {
-        // 当且仅当点击的是预览区图片且不是预览大图
-        if (ele.id !== "le-img-preview-content") {
-          that.previewImg = ele.src;
-        }
-      }
-    });
+    // this.$el.querySelector(".markdown-body").addEventListener("click", function (event) {
+    //   event = event ? event : window.event;
+    //   let ele = event.srcElement ? event.srcElement : event.target;
+    //   if (ele.tagName === "IMG") {
+    //     // 当且仅当点击的是预览区图片且不是预览大图
+    //     if (ele.id !== "le-img-preview-content") {
+    //       that.previewImg = ele.src;
+    //     }
+    //   }
+    // });
   },
 };
 </script>

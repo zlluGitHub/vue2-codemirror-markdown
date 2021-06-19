@@ -102,8 +102,8 @@ export default {
 #### 事件方法
 | 属性             | 返回参数       | 说明                       |
 |:-----------------|:---------------|:---------------------------|
-| on-save          | markdown，html | 点击菜单上的保存按钮时触发 |
-| on-change        | markdown，html | 编辑器内容发上变化时触发   |
+| on-save          | markdown，html, render| 点击菜单上的保存按钮时触发 |
+| on-change        | markdown，html, render | 编辑器内容发上变化时触发   |
 | on-upload-file   | markdown       | 点击菜单上的导入按钮时触发 |
 | on-download-file | markdown       | 点击菜单上的导出按钮时触发 |
 
@@ -143,6 +143,7 @@ toolbar: {
     fullScreenEdit: true, // 全屏编辑
     fullScreen: true, // 全窗口预览
     preview: true,  // 实时预览
+    toc: true, //目录TOC
     save: true,  // 保存预览的html文本
     upload: true, //文件导入
     download: true //文件导出 

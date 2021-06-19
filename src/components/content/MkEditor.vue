@@ -37,6 +37,7 @@
           <div
             class="mk-editor-right"
             ref="mkEditorRight"
+            v-show="defaultPercent !== 100"
             :class="{ fullStyle: fullScreenFlag }"
           >
             <a href="javascript:;" v-if="fullScreenFlag" @click="fullScreen()">
@@ -47,6 +48,7 @@
               :hljsCss="hljsCss"
               :value="html"
               :tocPosition="tocPosition"
+              :tocActive="tocActive"
               ref="markdownBody"
             ></MkPreview>
           </div>
@@ -223,6 +225,7 @@ export default {
   },
   data() {
     return {
+      tocActive: () => {},
       // config: config,
       defaultPercent: 50,
       themes: themes,
@@ -250,6 +253,7 @@ export default {
       this.$nextTick(() => {
         this.$refs.markdownBody.isToc =
           value.indexOf("@[TOC]") > -1 || value.indexOf("@[toc]") > -1 ? true : false;
+        this.$refs.toolbar.isToc = this.$refs.markdownBody.isToc;
       });
       this.$emit("change", value);
       // this.editor.setValue(value);
@@ -310,6 +314,7 @@ export default {
       this.$refs.toolbar.toolbar.fullScreenEditFlag = this.fullscreen;
       this.$refs.toolbar.fullScreenEdit();
     }
+    this.tocActive = this.$refs.toolbar.tocActive;
   },
   methods: {
     handlOnUploadFile(val) {
@@ -499,8 +504,12 @@ export default {
       localStorage.setItem("theme", theme);
     },
     savePreview() {
-      this.$emit("save", { markdown: this.origin, html: this.html });
-      this.$emit("on-save", { markdown: this.origin, html: this.html });
+      this.$emit("save", { markdown: this.origin, html: this.html, render: md.render });
+      this.$emit("on-save", {
+        markdown: this.origin,
+        html: this.html,
+        render: md.render,
+      });
     },
     clearContent() {
       this.origin = "";
@@ -597,7 +606,11 @@ export default {
       // this.historyPushFlag = true
       this.origin = this.editor.getValue();
       this.html = md.render(this.origin);
-      this.$emit("on-change", { markdown: this.origin, html: this.html });
+      this.$emit("on-change", {
+        markdown: this.origin,
+        html: this.html,
+        render: md.render,
+      });
     },
     // 校验markdown图片标签
     checkMdImgTag() {
