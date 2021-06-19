@@ -95,8 +95,8 @@ export default {
 | showToolbar | 是否显示工具栏                 | Boolean | true                      |
 | toolbar     | 菜单栏及快捷键的功能           | Object  | 见下文                    |
 | hljsCss     | html显示区域代码高亮样式       | String  | 'github'                  |
-| hljsCss     | html显示区域代码高亮样式       | String  | 'github'                  |
-| tocPosition  | 标题目录位置 （inner、right）    | String | "inner"                     |
+| fullscreen  | 编辑器是否默认全屏             | boolean | false                     |
+| tocPosition  | 标题目录位置 （inner、right）    | String | "inner"                 |
 | indentUnit  | 编辑器缩进大小（默认两个空格） | Number  | 2                         |
 
 #### 事件方法
