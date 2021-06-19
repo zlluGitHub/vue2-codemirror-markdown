@@ -6,7 +6,15 @@
 </style>
 <template>
   <div class="preview-markdown-warp">
-    <div class="markdown-body" v-html="html"></div>
+    <div
+      :class="[
+        'markdown-body',
+        {
+          'toc-warp': tocPosition === 'right' && isToc,
+        },
+      ]"
+      v-html="html"
+    ></div>
     <!-- 大图预览 -->
     <!-- <transition name="le-img-preview-animation"> -->
     <!-- <div
@@ -36,14 +44,19 @@ export default {
       type: String,
       default: "",
     },
+    tocPosition: {
+      type: String,
+      default: "",
+    },
     hljsCss: {
       type: String,
       default: "github",
-    },
+    }
   },
   data() {
     return {
       content: "",
+      isToc: false,
       oldStyle: "",
       currentStyle: "",
       html: "",
@@ -56,6 +69,7 @@ export default {
   },
   watch: {
     value(value) {
+     
       this.content = value;
     },
     content(value) {

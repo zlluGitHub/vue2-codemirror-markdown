@@ -46,6 +46,7 @@
               :style="{ fontSize: font.preview + 'px' }"
               :hljsCss="hljsCss"
               :value="html"
+              :tocPosition="tocPosition"
               ref="markdownBody"
             ></MkPreview>
           </div>
@@ -153,6 +154,10 @@ export default {
       type: String,
       default: "",
     },
+    tocPosition: {
+      type: String,
+      default: "",
+    },
     hljsCss: {
       type: String,
       default: "github",
@@ -242,10 +247,14 @@ export default {
   watch: {
     //监听值变化，再赋值给value
     origin(value) {
+      this.$nextTick(() => {
+        this.$refs.markdownBody.isToc =
+          value.indexOf("@[TOC]") > -1 || value.indexOf("@[toc]") > -1 ? true : false;
+      });
       this.$emit("change", value);
       // this.editor.setValue(value);
     },
-    value(value) { 
+    value(value) {
       if (this.origin !== value) {
         this.editor.setValue(value);
       }

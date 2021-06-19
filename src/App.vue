@@ -5,6 +5,7 @@
       :indentUnit="2"
       :fullscreen="false"
       :hljsCss="hljsCss"
+      tocPosition="right"
       :imageUploader="imageObj"
       @on-upload-file="handleonUploadFile"
       @on-download-file="handleOnDownloadFile"
