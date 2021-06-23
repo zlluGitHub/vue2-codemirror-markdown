@@ -69,7 +69,7 @@ export const uploadToGithub = ($vm, file, fileName) => {
     .catch(e => e)
 }
 
-export const uploadImg = ({ url = "http://localhost", data, header, onChange }, callBack) => {
+export const uploadImg = ({ url = "http://localhost", data, header, onChange, onreadystatechange }, callBack) => {
   let input = document.createElement("input");
   input.type = "file";
   input.click();
@@ -94,12 +94,20 @@ export const uploadImg = ({ url = "http://localhost", data, header, onChange }, 
 
     xhr.open("POST", url);
     xhr.send(form); //发送表单数据
-    xhr.onreadystatechange = () => {
+
+    xhr.onreadystatechange = (e) => {
+      if (onreadystatechange) {
+        onreadystatechange(xhr, e)
+      }
+
       let resultObj = xhr.responseText ? JSON.parse(xhr.responseText) : "上传失败！";
-      if (onChange) {
-        onChange({ code: xhr.status, result: resultObj })
+      if (xhr.readyState == 4) {
+        if (onChange) {
+          onChange({ code: xhr.status, result: resultObj })
+        }
         callBack({ code: xhr.status, result: resultObj })
       }
+
       input.remove()
     }
 

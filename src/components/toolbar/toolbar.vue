@@ -275,14 +275,7 @@
               </a>
             </li>
             <li>
-              <a
-                href="javascript:;"
-                title="添加图片"
-                @click.stop="
-                  updateInsertImg();
-                  handleCloseMarkBox();
-                "
-              >
+              <a href="javascript:;" title="添加图片" @click.stop="updateInsertImg">
                 上传图片
               </a>
             </li>
@@ -369,11 +362,11 @@
             ></i>
           </a>
         </li>
-        <li v-if="toolbar.fullScreen">
+        <!-- <li v-if="toolbar.fullScreen">
           <a href="javascript:;" title="全窗口预览（Ctrl+Alt+F）">
             <i class="fa fa-desktop" name="fullScreen" @click.stop="fullScreen()"></i>
           </a>
-        </li>
+        </li> -->
         <li v-if="toolbar.fullScreenEdit">
           <a
             href="javascript:;"
@@ -651,12 +644,11 @@ export default {
     //插入上传图片
     updateInsertImg() {
       // console.log(this.imageUploader);
+      this.handleCloseMarkBox();
       uploadImg(this.imageUploader, (res) => {
         // console.log(res);
         if (res.code === 200) {
-          this.insertImg(res);
-        } else {
-          alert("图片上传失败！");
+          this.insertImg(res.result);
         }
       });
     },

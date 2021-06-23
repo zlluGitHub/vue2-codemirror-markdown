@@ -1,7 +1,6 @@
 ## vue2-codemirror-markdown
-
 `vue2-codemirror-markdown` 是一款基于 `vue` 的 `Markdown` 编辑器，功能正在更新中，欢迎反馈。功能相关问题反馈或建议可以提交 [issues](https://github.com/zlluGitHub/vue2-codemirror-markdown/issues) 。
-
+ 
 ### 预览图 
 ![预览图](./demo.png)
 ###  快速上手 
@@ -50,6 +49,9 @@ export default {
                 header: {},
                 onChange: (data) => {
                     console.log(data);
+                },
+                onreadystatechange:(xhr, e)=>{
+                    console.log(xhr, e);
                 }
             } 
         }
@@ -65,7 +67,7 @@ export default {
             // 获取预览文本
             // console.log(this.value);
             console.log(val);
-        alert("请在控制台查看！");
+            alert("请在控制台查看！");
         },
         handleOnChange(val) {
             console.log(val);
@@ -93,25 +95,43 @@ export default {
 | theme       | 编辑器主题                     | String  | 'base16-dark'             |
 | font        | 设置编辑区和展示区的文字大小   | Object  | {editor: 16, preview: 16} |
 | showToolbar | 是否显示工具栏                 | Boolean | true                      |
-| toolbar     | 菜单栏及快捷键的功能           | Object  | 见下文                    |
+| toolbar     | 菜单栏及快捷键的功能           | Object  | 见下文`菜单栏配置配置`                    |
 | hljsCss     | html显示区域代码高亮样式       | String  | 'github'                  |
 | fullscreen  | 编辑器是否默认全屏             | boolean | false                     |
-| tocPosition  | 标题目录位置 （inner、right）    | String | "inner"                 |
+| tocPosition | 标题目录位置 （inner、right）  | String  | "inner"                   |
 | indentUnit  | 编辑器缩进大小（默认两个空格） | Number  | 2                         |
+| imageUploader  | 上传图片相关配置属性  | Object  |   详见下文`图片上传`                     |
+
+#### 图片上传
+需要设置`imageUploader`属性如下：
+```
+{
+    url: "http://127.0.0.1:82/upload",
+    data: {},
+    header: {},
+    onChange: (data) => {
+        console.log(data);
+    },
+    onreadystatechange:(xhr, e)=>{
+        console.log(xhr, e);
+    }
+} 
+```
 
 #### 事件方法
-| 属性             | 返回参数       | 说明                       |
-|:-----------------|:---------------|:---------------------------|
-| on-save          | markdown，html, render| 点击菜单上的保存按钮时触发 |
+| 属性             | 返回参数               | 说明                       |
+|:-----------------|:-----------------------|:---------------------------|
+| on-save          | markdown，html, render | 点击菜单上的保存按钮时触发 |
 | on-change        | markdown，html, render | 编辑器内容发上变化时触发   |
-| on-upload-file   | markdown       | 点击菜单上的导入按钮时触发 |
-| on-download-file | markdown       | 点击菜单上的导出按钮时触发 |
+| on-upload-file   | markdown               | 点击菜单上的导入按钮时触发 |
+| on-download-file | markdown               | 点击菜单上的导出按钮时触发 |
 
 
 #### 菜单栏配置配置
-```html
+属性 `toolbar` 相关属性
+```
 // 默认菜单栏配置
-toolbar: {
+{
     undo: true, // 撤销
     redo: true, // 重做
     bold: true, // 粗体
@@ -140,8 +160,7 @@ toolbar: {
     image: true, // 图片
     table: true, // 表格
     skin: true, // 皮肤
-    fullScreenEdit: true, // 全屏编辑
-    fullScreen: true, // 全窗口预览
+    fullScreenEdit: true, // 全屏编辑 
     preview: true,  // 实时预览
     toc: true, //目录TOC
     save: true,  // 保存预览的html文本
@@ -151,11 +170,11 @@ toolbar: {
 ```
  
 ##### hljsCss可用属性值
-样式提取自highlight.js，显示效果可参考：https://highlightjs.org/
+样式提取自 `highlight.js`，显示效果可参考：[https://highlightjs.org/](https://highlightjs.org/)
 
 支持的样式值如下
 
-```json
+```
 a11yDark
 a11yLight
 agate
