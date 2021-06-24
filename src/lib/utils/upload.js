@@ -69,9 +69,10 @@ export const uploadToGithub = ($vm, file, fileName) => {
     .catch(e => e)
 }
 
-export const uploadImg = ({ url = "http://localhost", data, header, onChange, onreadystatechange }, callBack) => {
+export const uploadImg = ({ url = "http://localhost", data, header, accept, onChange, onreadystatechange }, callBack) => {
   let input = document.createElement("input");
   input.type = "file";
+  input.accept = accept ? accept : 'image/*';
   input.click();
   input.onchange = () => {
     let file = input.files[0];

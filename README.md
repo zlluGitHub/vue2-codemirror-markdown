@@ -47,6 +47,7 @@ export default {
                 url: "http://127.0.0.1:82/upload",
                 data: {},
                 header: {},
+                accept: 'image/*',
                 onChange: (data) => {
                     console.log(data);
                 },
@@ -109,6 +110,7 @@ export default {
     url: "http://127.0.0.1:82/upload",
     data: {},
     header: {},
+    accept: '.png',
     onChange: (data) => {
         console.log(data);
     },
