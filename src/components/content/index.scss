@@ -98,7 +98,6 @@ body {
     height: 100%;
   }
   .mk-editor-right {
-     
     height: 100%;
     background: #fff;
     > a {
@@ -213,6 +212,64 @@ body {
   z-index: 1000;
 }
 
+.md-tip {
+  position: relative;
+  padding: 0.1rem 1.5rem;
+  border-left-width: 6px;
+  border-left-style: solid;
+  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+
+  p {
+    margin: 12px 0;
+  }
+  &::before {
+    position: absolute;
+
+    width: 25px;
+    height: 25px;
+    left: -16px;
+    top: 12px;
+    box-sizing: border-box;
+  }
+}
+
+.md-tip-info {
+  border-color: #007bff;
+  background-color: #f8f8f8;
+
+  &::before {
+    content: url("../../assets/info.svg");
+  }
+}
+.md-tip-warning {
+  border-color: #f4cd00;
+  background-color: #fff7d0;
+
+  &::before {
+    content: url("../../assets/warning.svg");
+  }
+}
+
+.md-tip-error,.md-tip-danger {
+  border-color: #f55;
+  background-color: #ffe6e6;
+
+  &::before {
+    content: url("../../assets/error.svg");
+  }
+}
+
+.md-tip-success {
+  border-color: #42b983;
+  background-color: #f8f8f8;
+
+  &::before {
+    content: url("../../assets/dp.svg");
+  }
+}
+
+ 
 /** 预览打开、关闭动画 
 
 .mk-editor-right-animation-enter-active {

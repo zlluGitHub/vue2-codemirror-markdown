@@ -11,6 +11,7 @@ const container = require('markdown-it-container')
 const abbr = require('markdown-it-abbr')
 const mark = require('markdown-it-mark')
 const ins = require('markdown-it-ins')
+const tips = require('markdown-it-tips')
 var md = require('markdown-it')({
   html: true,
   linkify: true,
@@ -31,6 +32,7 @@ var md = require('markdown-it')({
   .use(abbr)
   .use(toc)
   .use(code)
+  .use(tips)
 
 // console.log(md.renderer.rules)
 

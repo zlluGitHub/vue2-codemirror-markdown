@@ -2,7 +2,10 @@
 `vue2-codemirror-markdown` 是一款基于 `vue` 的 `Markdown` 编辑器，功能正在更新中，欢迎反馈。功能相关问题反馈或建议可以提交 [issues](https://github.com/zlluGitHub/vue2-codemirror-markdown/issues) 。
  
 ### 预览图 
+##### 示例图1
 ![预览图](./demo.png)
+##### 示例图2
+![预览图](./demo1.png)
 ###  快速上手 
 #### 下载插件
 ```shell

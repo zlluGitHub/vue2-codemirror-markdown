@@ -32,7 +32,20 @@ export default {
       hljsCss: "vs2015",
       content:
         "@[TOC](导航)\n" +
-        "Markdown 语法简介\n" +
+        "# Markdown 语法简介\n" +
+        "# 自定义内容\n" +
+        "### success\n" +
+        "::: success\n" +
+        "自定义内容\n" +
+        ":::\n" +
+        "### error\n" +
+        "::: error\n" +
+        "自定义内容\n" +
+        ":::\n" +
+        "### warning\n" +
+        "::: warning\n" +
+        "自定义内容\n" +
+        ":::\n" +
         "# 字符效果、分隔线\n" +
         "----\n" +
         "\n" +
@@ -240,7 +253,7 @@ export default {
         url: "http://127.0.0.1:82/upload",
         data: {},
         header: {},
-        accept:'image/*',
+        accept: "image/*",
         onChange: (data) => {
           console.log(data);
         },
