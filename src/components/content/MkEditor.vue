@@ -4,7 +4,11 @@
 <template>
   <div
     class="md-container"
-    :class="{ 'md-shadow': shadow, 'md-border': !shadow, fullStyle: fullScreenEditFlag }"
+    :class="{
+      'md-shadow': shadow,
+      'md-border': !shadow,
+      fullStyle: fullScreenEditFlag,
+    }"
   >
     <ToolBar
       v-if="showToolbar"
@@ -27,10 +31,22 @@
       :editorFontSize="editorFontSize"
     ></ToolBar>
     <div class="mk-editor-container">
-      <split-pane :min-percent="25" :default-percent="defaultPercent" split="vertical">
+      <split-pane
+        :min-percent="25"
+        :default-percent="defaultPercent"
+        split="vertical"
+      >
         <template slot="paneL">
-          <div class="mk-editor-left" ref="mkEditorLeft">
-            <textarea ref="editor" id="my-textarea" placeholder="输入数据..."></textarea>
+          <div
+            class="mk-editor-left"
+            ref="mkEditorLeft"
+            v-show="defaultPercent !== 0"
+          >
+            <textarea
+              ref="editor"
+              id="my-textarea"
+              placeholder="输入数据..."
+            ></textarea>
           </div>
         </template>
         <template slot="paneR">
@@ -76,7 +92,11 @@ import "codemirror/addon/edit/matchbrackets";
 import "codemirror/addon/hint/show-hint";
 import "codemirror/addon/hint/anyword-hint";
 import "codemirror/mode/markdown/markdown";
-import { insertImg, insertTable, simpleClick } from "../../lib/core/toolbar_click";
+import {
+  insertImg,
+  insertTable,
+  simpleClick,
+} from "../../lib/core/toolbar_click";
 import md from "../../lib/core/markdown";
 import config from "../../lib/config";
 
@@ -170,6 +190,12 @@ export default {
         return config.font;
       },
     },
+    removeEditDom: {
+      type: Boolean,
+      default() {
+        return config.removeEditDom;
+      },
+    },
     fontSize: {
       type: Array,
       default() {
@@ -180,7 +206,7 @@ export default {
       type: String,
       default:
         localStorage.getItem("theme") === null
-          ? "material"
+          ? config.theme // "xq-light"  material
           : localStorage.getItem("theme"),
     },
     // 工具栏是否显示
@@ -191,7 +217,9 @@ export default {
     // 工具栏是否显示
     showToolbar: {
       type: Boolean,
-      default: true,
+      default() {
+        return config.showToolbar;
+      },
     },
     // 工具栏内部功能及快捷键
     toolbar: {
@@ -252,8 +280,11 @@ export default {
     origin(value) {
       this.$nextTick(() => {
         this.$refs.markdownBody.isToc =
-          value.indexOf("@[TOC]") > -1 || value.indexOf("@[toc]") > -1 ? true : false;
-        this.$refs.toolbar.isToc = this.$refs.markdownBody.isToc;
+          value.indexOf("@[TOC]") > -1 || value.indexOf("@[toc]") > -1
+            ? true
+            : false;
+        if (this.$refs.toolbar)
+          this.$refs.toolbar.isToc = this.$refs.markdownBody.isToc;
       });
       this.$emit("change", value);
       // this.editor.setValue(value);
@@ -288,9 +319,30 @@ export default {
     },
   },
   created() {
-    if (this.toolbar) {
-      this.toolbarConfig = { ...config.toolbar, ...this.toolbar };
+    this.toolbarConfig = { ...config.toolbar, ...(this.toolbar || {}) };
+
+    // 是否只预览
+    if (this.toolbarConfig.onlyPreview) {
+      this.defaultPercent = 0;
+      this.$nextTick(() => {
+        this.$refs.toolbar.isTocFlag = true;
+        // this.showToolbar = false
+        let editorDom1 = document.querySelector(
+          ".mk-editor-container .splitter-pane"
+        );
+        let editorDom2 = document.querySelector(
+          ".mk-editor-container .splitter-pane-resizer"
+        );
+        if (this.removeEditDom) {
+          editorDom1.remove();
+          editorDom2.remove();
+        } else {
+          editorDom1.style.display = "none";
+          editorDom2.style.display = "none";
+        }
+      });
     }
+
     if (this.config && JSON.stringify(this.config) !== "{}") {
       for (const key in this.config) {
         config[key] = this.config[key];
@@ -426,7 +478,8 @@ export default {
           let percentage = 0;
           if (current && next && current !== next) {
             percentage =
-              (currentPosition - that.editor.heightAtLine(current - 1, "local")) /
+              (currentPosition -
+                that.editor.heightAtLine(current - 1, "local")) /
               (that.editor.heightAtLine(next - 1, "local") -
                 that.editor.heightAtLine(current - 1, "local"));
           }
@@ -444,7 +497,8 @@ export default {
             ).offsetTop;
           }
           mdBody.scrollTop =
-            lastPosition + (nextPosition - lastPosition) * editorScroll.percentage;
+            lastPosition +
+            (nextPosition - lastPosition) * editorScroll.percentage;
         }
         // }, 125);
       });
@@ -504,7 +558,11 @@ export default {
       localStorage.setItem("theme", theme);
     },
     savePreview() {
-      this.$emit("save", { markdown: this.origin, html: this.html, render: md.render });
+      this.$emit("save", {
+        markdown: this.origin,
+        html: this.html,
+        render: md.render,
+      });
       this.$emit("on-save", {
         markdown: this.origin,
         html: this.html,
@@ -517,7 +575,8 @@ export default {
     },
     initLang() {
       // TODO
-      let lang = config.langList.indexOf(this.language) >= 0 ? this.language : "zh_CN";
+      let lang =
+        config.langList.indexOf(this.language) >= 0 ? this.language : "zh_CN";
       this.placeholders = config.words[`${lang}`].placeholders;
     },
     // onDrag: function (e) {
@@ -604,9 +663,9 @@ export default {
       //   }, 200);
       // }
       // this.historyPushFlag = true
-      this.origin = this.editor.getValue(); 
+      this.origin = this.editor.getValue();
       this.html = md.render(
-        this.origin.indexOf("@[TOC]") > -1||this.origin.indexOf("@[toc]") > -1
+        this.origin.indexOf("@[TOC]") > -1 || this.origin.indexOf("@[toc]") > -1
           ? this.origin
           : "@[TOC](文章目录)\n" + this.origin
       );

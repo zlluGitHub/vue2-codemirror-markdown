@@ -20,15 +20,21 @@
     }
     .toc-warp {
         // position: relative;
-        padding-right: 300px;
-        /deep/ .toc-box {
+        // padding-right: 280px;
+         .toc-box {
             display: none;
             position: absolute;
             top: 0px;
             bottom: 0;
             right: 0px;
+            font-size: 12px;
             overflow-y: auto;
             width: 270px;
+            padding-left: 20px;
+            // padding-right: 20px;
+            z-index: 10;
+            background-color: #fff;
+            border-left: 1px solid #eee;
         }
     }
 }

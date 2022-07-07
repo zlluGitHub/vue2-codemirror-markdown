@@ -98,6 +98,7 @@ export default {
 | value       | 可以使用 v-model 双向绑定数据  | String  | ''                        |
 | theme       | 编辑器主题                     | String  | 'base16-dark'             |
 | font        | 设置编辑区和展示区的文字大小   | Object  | {editor: 16, preview: 16} |
+| removeEditDom | 只在预览的时候是否移除编辑器节点                | Boolean | true                      |
 | showToolbar | 是否显示工具栏                 | Boolean | true                      |
 | toolbar     | 菜单栏及快捷键的功能           | Object  | 见下文`菜单栏配置配置`                    |
 | hljsCss     | html显示区域代码高亮样式       | String  | 'github'                  |
@@ -174,6 +175,7 @@ export default {
     skin: true, // 皮肤
     fullScreenEdit: true, // 全屏编辑 
     preview: true,  // 实时预览
+    onlyPreview: false,  // 只预览
     toc: true, //目录TOC
     save: true,  // 保存预览的html文本
     upload: true, //文件导入

@@ -4,6 +4,7 @@
       v-model="content"
       :indentUnit="2"
       :fullscreen="false"
+      :theme="theme"
       :hljsCss="hljsCss"
       tocPosition="right"
       :imageUploader="imageObj"
@@ -14,6 +15,7 @@
         undo: true, // 撤销
         redo: true, // 重做
         bold: true, // 粗体
+        onlyPreview: false,
       }"
       :config="{
         lineNumbers: true,
@@ -30,6 +32,7 @@ export default {
   data() {
     return {
       hljsCss: "vs2015",
+      theme: "", //xq-light
       content:
         "@[TOC](导航)\n" +
         "# Markdown 语法简介\n" +
@@ -290,5 +293,8 @@ export default {
 <style>
 html {
   background: #eee;
+  font-family: Varela Round, Noto Sans SC, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", Segoe UI Symbol;
 }
 </style>

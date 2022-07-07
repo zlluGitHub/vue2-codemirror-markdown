@@ -7,8 +7,11 @@ const config = {
     editor: 14,
     preview: 14
   },
+  theme:'material',
   imageType: ['jpg', 'jpeg', 'gif', 'png', 'bmp'],
   dragUpload: true,
+  showToolbar: true,
+  removeEditDom: true, //只在预览的时候是否移除编辑器节点
   imageUploader: {
     url: '',
     data: {},
@@ -61,6 +64,7 @@ const config = {
     fullScreenEdit: true, // 全屏编辑
     fullScreen: true, // 全窗口预览
     preview: true,  // 实时预览
+    onlyPreview: false,  // 只预览
     save: true,  // 保存预览的html文本
     toc: true, //目录TOC
     fontSize: true, //代码字体大小 

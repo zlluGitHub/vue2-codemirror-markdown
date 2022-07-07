@@ -678,7 +678,7 @@ export default {
       this.$nextTick(() => {
         let markdownBody = document.querySelector(".markdown-body");
         let tocBox = document.querySelector(".toc-box");
-        if (markdownBody) markdownBody.style.paddingRight = val ? "" : "0px";
+        if (markdownBody) markdownBody.style.paddingRight = val ? "290px" : "30px";
         if (tocBox) tocBox.style.display = val ? "block" : "none";
       });
     },
