@@ -1,5 +1,5 @@
-<style lang="scss">
-@import "./index.scss";
+<style>
+@import "./index.css";
 /* @import "../../assets/css/github-markdown.css"; */
 /* @import url("https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"); */
 /* @import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css"); */

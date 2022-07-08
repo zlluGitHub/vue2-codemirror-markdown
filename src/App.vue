@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       hljsCss: "vs2015",
-      theme: "", //xq-light
+      theme: "xq-light", //xq-light
       content:
         "@[TOC](导航)\n" +
         "# Markdown 语法简介\n" +

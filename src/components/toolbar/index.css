@@ -1,0 +1,394 @@
+.mk-editor-toolbar {
+  border-bottom: 1px solid #e6e8ea;
+  display      : flex;
+  background   : #fff;
+}
+
+.mk-editor-toolbar .mark-box {
+  position: fixed;
+  top     : 0;
+  left    : 0;
+  right   : 0;
+  bottom  : 0;
+  z-index : 10;
+}
+
+.mk-editor-toolbar .mk-editor-tools {
+  padding    : 0;
+  margin     : 0 10px;
+  list-style : none;
+  margin-left: 5px;
+  display    : flex;
+}
+
+.mk-editor-toolbar .mk-editor-tools>li.divider {
+  height      : 26px;
+  padding     : 0px;
+  border-right: 1px solid #ddd;
+  margin      : 0 10px;
+  margin-top  : 4px;
+}
+
+.mk-editor-toolbar .mk-editor-tools li.active {
+  background: #eee;
+}
+
+.mk-editor-toolbar .mk-editor-tools li {
+  display    : flex;
+  align-items: center;
+}
+
+.mk-editor-toolbar .mk-editor-tools li a {
+  margin   : 0;
+  padding  : 2px 8px;
+  font-size: 16px;
+}
+
+
+.mk-editor-toolbar .mk-editor-tools>li {
+  position: relative;
+  height  : 35px;
+}
+
+.mk-editor-toolbar .mk-editor-tools>li ol.theme-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.mk-editor-toolbar .mk-editor-tools>li ol.theme-list li {
+  width: 120px;
+}
+
+
+.mk-editor-toolbar .mk-editor-tools>li>a {
+  outline  : 0;
+  color    : #666;
+  display  : inline-block;
+  min-width: 24px;
+
+  text-decoration: none;
+  text-align     : center;
+  border         : 1px solid #fff;
+  transition     : all 300ms ease-out;
+}
+
+.mk-editor-toolbar .mk-editor-tools>li>a .fa-caret-down {
+  margin-left: 5px;
+}
+
+.mk-editor-toolbar .mk-editor-tools>li>a:hover {
+  border    : 1px solid #ddd;
+  background: #eee;
+}
+
+
+.mk-editor-toolbar .mk-editor-tools>li ol {
+  padding   : 0;
+  position  : absolute;
+  top       : 35px;
+  left      : -20px;
+  z-index   : 15;
+  padding   : 5px 0px;
+  background: #fff;
+  box-shadow: 0 0 10px 0px #aaa;
+}
+
+.mk-editor-toolbar .mk-editor-tools>li ol>li {
+  cursor    : pointer;
+  list-style: none;
+  padding   : 5px 10px;
+  min-width : 90px;
+}
+
+.mk-editor-toolbar .mk-editor-tools>li ol>li:hover {
+  background: #eee;
+}
+
+
+.mk-editor-toolbar .mk-editor-tools>li ol a {
+  font-size: 13px;
+  color    : #666;
+}
+
+
+/* .mk-editor-toolbar .mk-editor-tools>li ol:hover a {
+  color: #000;
+} */
+
+.mk-editor-toolbar .tools-inner {
+  width          : 100%;
+  display        : flex;
+  justify-content: space-between;
+}
+
+
+.mk-editor-tools>li+li>a {
+  margin-left: -3px;
+}
+
+.mk-editor-tools>li>a:hover,
+.mk-editor-tools>li>a {
+  transition: all 300ms ease-out;
+}
+
+/* .fa {
+//   font: normal normal normal 14px/1 FontAwesome;
+//   font-size: inherit;
+//   text-rendering: auto;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   transform: translate(0, 0);
+// }
+
+// .mk-editor-tools .fa {
+//   text-align: center;
+//   display: block;
+//   padding: 5px;
+// }
+*/
+
+.mk-editor-tools .tools-bold {
+  padding    : 5px 2px;
+  display    : inline-block;
+  font-weight: 700;
+}
+
+/* 弹出框样式 */
+/* .mk-editor-toolbar .slide-fade-enter-active {
+//   -webkit-animation:fadeInLeft .5s .2s ease both;
+//   -moz-animation:fadeInLeft .5s .2s ease both;}
+//   @-webkit-keyframes fadeInLeft{
+//   0%{opacity:0;
+//   -webkit-transform:translateX(-20px)}
+//   100%{opacity:1;
+//   -webkit-transform:translateX(0)}
+//   }
+//   @-moz-keyframes fadeInLeft{
+//   0%{opacity:0;
+//   -moz-transform:translateX(-20px)}
+//   100%{opacity:1;
+//   -moz-transform:translateX(0)}
+// }
+// .mk-editor-toolbar .slide-fade-leave-active {
+//   -webkit-animation:fadeOutLeft .5s .2s ease both;
+//   -moz-animation:fadeOutLeft .5s .2s ease both;}
+//   @-webkit-keyframes fadeOutLeft{
+//   0%{opacity:1;
+//   -webkit-transform:translateX(0)}
+//   100%{opacity:0;
+//   -webkit-transform:translateX(-20px)}
+//   }
+//   @-moz-keyframes fadeOutLeft{
+//   0%{opacity:1;
+//   -moz-transform:translateX(0)}
+//   100%{opacity:0;
+//   -moz-transform:translateX(-20px)}
+// }
+*/
+
+.mk-editor-toolbar .modal {
+  position: absolute;
+  width   : 100%;
+  height  : 100%;
+  left    : 0;
+  top     : 0;
+}
+
+.mk-editor-toolbar .dropbox {
+  width        : 430px;
+  color        : #666;
+  position     : absolute;
+  z-index      : 99999;
+  display      : block;
+  border-radius: 3px;
+  box-shadow   : 0 0 10px rgba(0, 0, 0, 0.3);
+  background   : #fff;
+  font-size    : 14px;
+  top          : 15%;
+  left         : 35%;
+  margin       : 0 auto;
+}
+
+.mk-editor-toolbar .dialog-header {
+  padding           : 11px 20px;
+  border-bottom     : 1px solid #eee;
+  -webkit-transition: background 300ms ease-out;
+  -moz-transition   : background 300ms ease-out;
+  transition        : background 300ms ease-out;
+}
+
+.mk-editor-toolbar .dialog-close {
+  position          : absolute;
+  top               : 12px;
+  right             : 15px;
+  font-size         : 18px;
+  color             : #ccc;
+  -webkit-transition: color 300ms ease-out;
+  -moz-transition   : color 300ms ease-out;
+  transition        : color 300ms ease-out;
+}
+
+.mk-editor-toolbar .dialog-close a {
+  text-decoration: none;
+}
+
+.fa {
+  font                   : normal normal normal 14px/1 FontAwesome;
+  font-size              : inherit;
+  text-rendering         : auto;
+  -webkit-font-smoothing : antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform              : translate(0, 0);
+  color                  : #8a8383;
+}
+
+.mk-editor-toolbar .dialog-container {
+  position   : relative;
+  padding    : 20px;
+  line-height: 1.4;
+}
+
+
+.mk-editor-toolbar .dialog-form {
+  color: #666;
+}
+
+.mk-editor-toolbar .dialog-form>div {
+  display    : flex;
+  align-items: center;
+  margin     : 5px 0;
+}
+
+.mk-editor-toolbar .dialog-form>div>span {
+  margin-right: 5px;
+}
+
+
+
+
+.mk-editor-toolbar .dialog-form label {
+  width       : 20%;
+  margin-right: 10px;
+}
+
+
+
+.mk-editor-toolbar .dialog-form input[type="text"],
+.mk-editor-toolbar .dialog-form input[type="number"] {
+  color  : #999;
+  padding: 5px 6px;
+  border : 1px solid #ddd;
+
+  outline: none;
+}
+
+.mk-editor-toolbar .dialog-form input[type="number"] {
+  width: 60px;
+}
+
+.mk-editor-toolbar .dialog-form input[type="text"] {
+  width: 280px;
+}
+
+.mk-editor-toolbar .dialog-footer {
+  padding   : 10px 0 0;
+  text-align: right;
+  width     : 100%;
+  margin-top: 20px;
+}
+
+.mk-editor-toolbar .dialog-footer button {
+  margin-left: 30px;
+}
+
+
+.mk-editor-toolbar .dialog-container .dialog-btn,
+.mk-editor-toolbar .dialog-footer .dialog-btn,
+.mk-editor-toolbar .dialog-form .dialog-btn {
+  color        : #666;
+  min-width    : 75px;
+  cursor       : pointer;
+  background   : #fff;
+  padding      : 7px 10px;
+  border       : 1px solid #ddd;
+  border-radius: 3px;
+  outline      : none;
+  transition   : background 300ms ease-out;
+}
+
+.mk-editor-toolbar .dialog-form .fa-btns {
+  display: inline-block;
+}
+
+.mk-editor-toolbar .dialog-form .fa-btns label {
+  float     : none;
+  display   : inline-block;
+  width     : auto;
+  text-align: left;
+  padding   : 0 0 0 5px;
+  cursor    : pointer;
+}
+
+.mk-editor-toolbar a:-webkit-any-link {
+  cursor         : pointer;
+  text-decoration: none;
+}
+
+.mk-editor-toolbar .dialog-form .fa-btns a {
+  color          : #999;
+  padding        : 7px 10px 0 0;
+  display        : inline-block;
+  text-decoration: none;
+  text-align     : center;
+}
+
+.mk-editor-toolbar .dropdown {
+  position: relative;
+  display : inline-block;
+}
+
+/* 下拉内容 (默认隐藏) */
+/* 
+// .mk-editor-toolbar .dropdown-content {
+//   position: absolute;
+//   background-color: #f9f9f9;
+//   height: 260px;
+//   overflow-y: scroll;
+//   width: 160px;
+//   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+// }
+ */
+/* 下拉菜单的链接 */
+.mk-editor-toolbar .dropdown-content a {
+  color          : black;
+  padding        : 12px 16px;
+  text-decoration: none;
+  display        : block;
+}
+
+/* 鼠标移上去后修改下拉菜单链接颜色 */
+.mk-editor-toolbar .dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.mk-editor-toolbar .dropdown-content .current-skin {
+  background-color: #e3e3e3;
+}
+
+/* 在鼠标移上去后显示下拉菜单 */
+.mk-editor-toolbar .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* 当下拉内容显示后修改下拉按钮的背景颜色 */
+.mk-editor-toolbar .dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+@media (max-width: 800px) {
+
+  .le-head-tools,
+  .le-align-tools {
+    display: none !important;
+  }
+}

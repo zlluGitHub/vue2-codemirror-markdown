@@ -7,7 +7,7 @@ const config = {
     editor: 14,
     preview: 14
   },
-  theme:'material',
+  theme:'xq-light', //material
   imageType: ['jpg', 'jpeg', 'gif', 'png', 'bmp'],
   dragUpload: true,
   showToolbar: true,

@@ -1,5 +1,5 @@
-<style lang="scss" scoped>
-@import "./index.scss";
+<style >
+@import "./index.css";
 </style>
 <template>
   <div class="mk-editor-toolbar">
@@ -25,8 +25,74 @@
           </a>
         </li>
         <li v-if="dividers[0]" class="divider"></li>
+         <li v-if="toolbar.h1" class="le-head-tools">
+          <a href="javascript:;" title="标题" @click.stop="isTitleShow = true">
+            <i class="fa fa-text-width" name="h1"></i>
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ol v-if="isTitleShow">
+            <li v-if="toolbar.h1">
+              <a
+                href="javascript:;"
+                title="标题1（Ctrl+1）"
+                @click.stop="toolbarClick('h1')"
+              >
+                标题 1
+              </a>
+            </li>
+            <li v-if="toolbar.h2">
+              <a
+                href="javascript:;"
+                title="标题2（Ctrl+2）"
+                @click.stop="toolbarClick('h2')"
+              >
+                标题 2
+              </a>
+            </li>
+            <li v-if="toolbar.h3">
+              <a
+                href="javascript:;"
+                title="标题3（Ctrl+3）"
+                @click.stop="toolbarClick('h3')"
+              >
+                标题 3
+              </a>
+            </li>
+            <li v-if="toolbar.h4">
+              <a
+                href="javascript:;"
+                title="标题4（Ctrl+4）"
+                @click.stop="toolbarClick('h4')"
+              >
+                标题 4
+              </a>
+            </li>
+            <li v-if="toolbar.h5">
+              <a
+                href="javascript:;"
+                title="标题5（Ctrl+5）"
+                @click.stop="toolbarClick('h5')"
+              >
+                标题 5
+              </a>
+            </li>
+            <li v-if="toolbar.h6">
+              <a
+                href="javascript:;"
+                title="标题6（Ctrl+6）"
+                @click.stop="toolbarClick('h6')"
+              >
+                标题 6
+              </a>
+            </li>
+          </ol>
+        </li>
         <li v-if="toolbar.bold">
-          <a href="javascript:;" title="粗体(Ctrl+B)" @click.stop="toolbarClick('bold')">
+          <a
+            href="javascript:;"
+            title="粗体(Ctrl+B)"
+            @click.stop="toolbarClick('bold')"
+          >
             <i class="fa fa-bold" name="bold"></i>
           </a>
         </li>
@@ -94,72 +160,15 @@
             <i class="fa fa-subscript" name="subscript"></i>
           </a>
         </li>
-        <li class="divider" v-if="dividers[0]"></li>
+        <!-- <li class="divider" v-if="dividers[0]"></li> -->
 
-        <li v-if="toolbar.h1" class="le-head-tools">
-          <a href="javascript:;" title="标题" @click.stop="isTitleShow = true">
-            <i class="fa fa-text-width" name="h1"></i>
-            <i class="fa fa-caret-down"></i>
-          </a>
-          <ol v-if="isTitleShow">
-            <li v-if="toolbar.h1">
-              <a
-                href="javascript:;"
-                title="标题1（Ctrl+1）"
-                @click.stop="toolbarClick('h1')"
-              >
-                标题 1
-              </a>
-            </li>
-            <li v-if="toolbar.h2">
-              <a
-                href="javascript:;"
-                title="标题2（Ctrl+2）"
-                @click.stop="toolbarClick('h2')"
-              >
-                标题 2
-              </a>
-            </li>
-            <li v-if="toolbar.h3">
-              <a
-                href="javascript:;"
-                title="标题3（Ctrl+3）"
-                @click.stop="toolbarClick('h3')"
-              >
-                标题 3
-              </a>
-            </li>
-            <li v-if="toolbar.h4">
-              <a
-                href="javascript:;"
-                title="标题4（Ctrl+4）"
-                @click.stop="toolbarClick('h4')"
-              >
-                标题 4
-              </a>
-            </li>
-            <li v-if="toolbar.h5">
-              <a
-                href="javascript:;"
-                title="标题5（Ctrl+5）"
-                @click.stop="toolbarClick('h5')"
-              >
-                标题 5
-              </a>
-            </li>
-            <li v-if="toolbar.h6">
-              <a
-                href="javascript:;"
-                title="标题6（Ctrl+6）"
-                @click.stop="toolbarClick('h6')"
-              >
-                标题 6
-              </a>
-            </li>
-          </ol>
-        </li>
-        <li v-if="toolbar.fontSize">
-          <a href="javascript:;" title="字体大小" @click.stop="isFontSize = true">
+       
+        <!-- <li v-if="toolbar.fontSize">
+          <a
+            href="javascript:;"
+            title="字体大小"
+            @click.stop="isFontSize = true"
+          >
             <i class="fa fa-font" name="字体大小"></i>
             <i class="fa fa-caret-down"></i>
           </a>
@@ -173,7 +182,7 @@
               <a href="javascript:;" :title="item"> {{ item }} px </a>
             </li>
           </ol>
-        </li>
+        </li> -->
         <li class="divider le-align-tools" v-if="dividers[1]"></li>
         <li v-if="toolbar.alignLeft" class="le-align-tools">
           <a
@@ -258,7 +267,11 @@
           </a>
         </li>
         <li v-if="toolbar.image">
-          <a href="javascript:;" title="添加图片" @click.stop="isImgShow = true">
+          <a
+            href="javascript:;"
+            title="添加图片"
+            @click.stop="isImgShow = true"
+          >
             <i class="fa fa-picture-o" name="image"></i>
           </a>
           <ol v-if="isImgShow">
@@ -275,7 +288,11 @@
               </a>
             </li>
             <li>
-              <a href="javascript:;" title="添加图片" @click.stop="updateInsertImg">
+              <a
+                href="javascript:;"
+                title="添加图片"
+                @click.stop="updateInsertImg"
+              >
                 上传图片
               </a>
             </li>
@@ -283,7 +300,11 @@
         </li>
         <li v-if="toolbar.table">
           <a href="javascript:;" title="添加表格">
-            <i class="fa fa-table" name="table" @click.stop="insertTableFlag = true"></i>
+            <i
+              class="fa fa-table"
+              name="table"
+              @click.stop="insertTableFlag = true"
+            ></i>
           </a>
         </li>
         <li v-if="toolbar.time">
@@ -293,24 +314,7 @@
         </li>
         <li class="divider"></li>
 
-        <li v-if="toolbar.skin" class="skin">
-          <a href="javascript:;" title="皮肤" @click.stop="selectSkin">
-            <i class="fa fa-magic" name="skin"></i>
-            <i class="fa fa-caret-down"></i>
-          </a>
-          <ol v-if="isSkinFlag" class="theme-list">
-            <li
-              v-for="(item, index) in themes"
-              :class="{ active: item === currentSkin }"
-              v-bind:key="'d' + index"
-              @click="selectTheme(item)"
-            >
-              <a href="javascript:;" :title="item"> {{ item }}</a>
-            </li>
-          </ol>
-          <!-- <div class="dropdown-content" v-if="skinFlag"></div> -->
-        </li>
-        <li class="divider"></li>
+       
         <li v-if="toolbar.upload">
           <a href="javascript:;" title="导入" @click.stop="importFile">
             <i class="fa fa-upload" name="clear"></i>
@@ -336,16 +340,39 @@
       </ul>
       <ul class="mk-editor-tools">
         <!-- <li class="divider"  v-if="dividers[3]"></li> -->
+         <li v-if="toolbar.skin" class="skin">
+          <a href="javascript:;" title="皮肤" @click.stop="selectSkin">
+            <i class="fa fa-magic" name="skin"></i>
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ol v-if="isSkinFlag" class="theme-list">
+            <li
+              v-for="(item, index) in themes"
+              :class="{ active: item === currentSkin }"
+              v-bind:key="'d' + index"
+              @click="selectTheme(item)"
+            >
+              <a href="javascript:;" :title="item"> {{ item }}</a>
+            </li>
+          </ol>
+          <!-- <div class="dropdown-content" v-if="skinFlag"></div> -->
+        </li>
+        <!-- <li class="divider"></li> -->
         <li v-if="toolbar.preview">
           <a
             href="javascript:;"
             :title="
-              previewFlag ? '关闭实时预览（Ctrl+Alt+P）' : '打开实时预览（Ctrl+Alt+P）'
+              previewFlag
+                ? '关闭实时预览（Ctrl+Alt+P）'
+                : '打开实时预览（Ctrl+Alt+P）'
             "
             @click.stop="preview"
           >
             <i
-              :class="{ 'fa fa-eye-slash': previewFlag, 'fa fa-eye': !previewFlag }"
+              :class="{
+                'fa fa-eye-slash': previewFlag,
+                'fa fa-eye': !previewFlag,
+              }"
               name="preview"
             ></i>
           </a>
@@ -357,7 +384,10 @@
             @click.stop="handleToc"
           >
             <i
-              :class="{ 'fa fa-outdent': isTocFlag, 'fa fa-indent': !isTocFlag }"
+              :class="{
+                'fa fa-outdent': isTocFlag,
+                'fa fa-indent': !isTocFlag,
+              }"
               name="toc"
             ></i>
           </a>
@@ -390,7 +420,12 @@
     </div>
     <!-- 添加网络图片 -->
     <!-- <transition name="slide-fade"> -->
-    <div class="modal" v-if="insertImgFlag" @touchmove.prevent.stop @mousewheel.prevent>
+    <div
+      class="modal"
+      v-if="insertImgFlag"
+      @touchmove.prevent.stop
+      @mousewheel.prevent
+    >
       <div class="dropbox image-box">
         <div class="dialog-header" style="cursor: move">
           <strong class="dialog-title">添加图片</strong>
@@ -410,8 +445,12 @@
             <input type="text" v-model="imageInfo.url" data-link />
           </div>
           <div class="dialog-footer">
-            <button class="dialog-btn" @click="insertImg(imageInfo)">确定</button>
-            <button class="dialog-btn" @click="insertImgFlag = false">取消</button>
+            <button class="dialog-btn" @click="insertImg(imageInfo)">
+              确定
+            </button>
+            <button class="dialog-btn" @click="insertImgFlag = false">
+              取消
+            </button>
           </div>
         </div>
       </div>
@@ -419,7 +458,12 @@
     <!-- </transition> -->
     <!-- 添加表格 -->
     <!-- <transition name="slide-fade"> -->
-    <div class="modal" v-if="insertTableFlag" @touchmove.prevent.stop @mousewheel.prevent>
+    <div
+      class="modal"
+      v-if="insertTableFlag"
+      @touchmove.prevent.stop
+      @mousewheel.prevent
+    >
       <div class="dropbox table-box">
         <div class="dialog-header" style="cursor: move">
           <strong class="dialog-title">添加表格</strong>
@@ -507,7 +551,10 @@
             <button class="dialog-btn dialog-enter-btn" @click="insertTable()">
               确定
             </button>
-            <button class="dialog-btn dialog-cancel-btn" @click="insertTableFlag = false">
+            <button
+              class="dialog-btn dialog-cancel-btn"
+              @click="insertTableFlag = false"
+            >
               取消
             </button>
           </div>
@@ -521,7 +568,13 @@
     ></div>
 
     <!-- 导入文件 -->
-    <input type="file" name="upload" ref="upload" accept=".md" style="display: none" />
+    <input
+      type="file"
+      name="upload"
+      ref="upload"
+      accept=".md"
+      style="display: none"
+    />
     <!-- </transition> -->
   </div>
 </template>
@@ -678,7 +731,8 @@ export default {
       this.$nextTick(() => {
         let markdownBody = document.querySelector(".markdown-body");
         let tocBox = document.querySelector(".toc-box");
-        if (markdownBody) markdownBody.style.paddingRight = val ? "290px" : "30px";
+        if (markdownBody)
+          markdownBody.style.paddingRight = val ? "290px" : "30px";
         if (tocBox) tocBox.style.display = val ? "block" : "none";
       });
     },
@@ -742,7 +796,10 @@ export default {
             this.$emit("on-upload-file", xmlDoc.xml);
           }
           //支持FF
-          else if (document.implementation && document.implementation.createDocument) {
+          else if (
+            document.implementation &&
+            document.implementation.createDocument
+          ) {
             let xmlDoc = document.implementation.createDocument("", "", null);
             xmlDoc.async = false;
             xmlDoc.load(input.value);
@@ -767,6 +824,7 @@ export default {
     // 选择设置编辑器字体大小
     handleFontSize(size) {
       // this.editorFontSize = size;
+     
       document.querySelector(".CodeMirror-sizer").style.fontSize = size + "px";
       this.handleCloseMarkBox();
     },
@@ -781,9 +839,15 @@ export default {
   },
   created() {
     this.checkArea(["h1", "h2", "h3", "h4", "h5", "h6"], 0);
-    this.checkArea(["alignLeft", "alignCenter", "alignRight", "ol", "ul", "hr"], 1);
+    this.checkArea(
+      ["alignLeft", "alignCenter", "alignRight", "ol", "ul", "hr"],
+      1
+    );
     this.checkArea(["link", "inlineCode", "code", "image", "table"], 2);
-    this.checkArea(["fullScreen", "preview", "fullScreenEdit", "skin", "download"], 3);
+    this.checkArea(
+      ["fullScreen", "preview", "fullScreenEdit", "skin", "download"],
+      3
+    );
   },
   mounted() {
     keydownListener(this);

@@ -1,64 +1,60 @@
 /*menu */
 .mk-right-menu {
-  position: absolute;
+  position        : absolute;
   background-color: #f9f9f9;
-  z-index: 1500;
-  width: 140px;
-  border-radius: 3px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index         : 1500;
+  width           : 140px;
+  border-radius   : 3px;
+  box-shadow      : 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
-.mk-right-menu > a {
-  color: rgba(0, 0, 0, 0.65);
-  padding: 5px 16px;
+.mk-right-menu>a {
+  color          : rgba(0, 0, 0, 0.65);
+  padding        : 5px 16px;
   text-decoration: none;
-  display: block;
-  text-align: center;
-  position: relative;
-  /*margin: 5px auto;*/
+  display        : block;
+  text-align     : center;
+  position       : relative;
+  /*margin       : 5px auto;*/
 }
 
 .mk-right-menu .dividing-line {
   border-bottom: 1px solid #e2e2e2;
 }
 
-.mk-right-menu > a:hover,
-.mk-right-menu > a > .img-menu > a:hover {
+.mk-right-menu>a:hover,
+.mk-right-menu>a>.img-menu>a:hover {
   background-color: #c7e3f1;
-  border-radius: 3px;
+  border-radius   : 3px;
 }
 
-.mk-right-menu > a > .img-menu {
+.mk-right-menu>a>.img-menu {
   background-color: #f9f9f9;
-  width: 140px;
-  position: absolute;
-  left: 140px;
-  top: 0px;
-  border-radius: 3px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  width           : 140px;
+  position        : absolute;
+  left            : 140px;
+  top             : 0px;
+  border-radius   : 3px;
+  box-shadow      : 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
-.mk-right-menu > a > .img-menu > a {
-  color: rgba(0, 0, 0, 0.65);
-  padding: 5px 16px;
+.mk-right-menu>a>.img-menu>a {
+  color          : rgba(0, 0, 0, 0.65);
+  padding        : 5px 16px;
   text-decoration: none;
-  display: block;
-  text-align: center;
+  display        : block;
+  text-align     : center;
 }
 
 .md-container {
-  width: 100%;
-  height: 100%;
+  width    : 100%;
+  height   : 100%;
   font-size: 16px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #eee;
+  position : relative;
+  overflow : hidden;
+  border   : 1px solid #eee;
 }
 
-// /* 主体 */
-// body {
-//   margin: 0;
-// }
 
 /*
 .le-not-select {
@@ -78,43 +74,44 @@
   border: 1px #cac7c7 solid;
 }
 
-// .mk-editor-container > div {
-//   // margin: 0;
-//   // padding: 0;
-//   // display: block;
-//   // width: 50%;
-//   // height: 100%;
 
-// }
 
 .mk-editor-container {
-  // font-size: 18px;
-  width: 100%;
+
+  width : 100%;
   height: calc(100% - 35px);
-  > div {
-    width: 100%;
-  }
-  .mk-editor-left {
-    height: 100%;
-  }
-  .mk-editor-right {
-    height: 100%;
-    background: #fff;
-    > a {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 600;
-      .fa {
-        font-size: 20px;
-      }
-    }
-  }
 }
 
-.CodeMirror {
+.mk-editor-container>div {
   width: 100%;
+}
+
+.mk-editor-container .mk-editor-left {
   height: 100%;
+}
+
+.mk-editor-container .mk-editor-right {
+  height    : 100%;
+  background: #fff;
+}
+
+.mk-editor-container .mk-editor-right>a {
+  position: absolute;
+  top     : 20px;
+  right   : 20px;
+  z-index : 600;
+}
+
+.mk-editor-container .mk-editor-right>a .fa {
+  font-size: 20px;
+}
+
+
+
+
+.CodeMirror {
+  width      : 100%;
+  height     : 100%;
   /*font-size: 16px;*/
 }
 
@@ -123,12 +120,12 @@
 }
 
 .CodeMirror-vscrollbar::-webkit-scrollbar {
-  width: 8px;
+  width : 8px;
   height: 4px;
 }
 
 .CodeMirror-vscrollbar::-webkit-scrollbar-button {
-  width: 8px;
+  width : 8px;
   height: 0;
 }
 
@@ -137,10 +134,10 @@
 }
 
 .CodeMirror-vscrollbar::-webkit-scrollbar-thumb {
-  background: #cfd6d6;
+  background        : #cfd6d6;
   -webkit-transition: 0.3s;
-  transition: 0.3s;
-  border-radius: 5px;
+  transition        : 0.3s;
+  border-radius     : 5px;
 }
 
 .CodeMirror-vscrollbar::-webkit-scrollbar-thumb:hover {
@@ -152,12 +149,12 @@
 }
 
 .markdown-body::-webkit-scrollbar {
-  width: 8px;
+  width : 8px;
   height: 4px;
 }
 
 .markdown-body::-webkit-scrollbar-button {
-  width: 8px;
+  width : 8px;
   height: 0;
 }
 
@@ -166,10 +163,10 @@
 }
 
 .markdown-body::-webkit-scrollbar-thumb {
-  background: #cfd6d6;
+  background        : #cfd6d6;
   -webkit-transition: 0.3s;
-  transition: 0.3s;
-  border-radius: 5px;
+  transition        : 0.3s;
+  border-radius     : 5px;
 }
 
 .markdown-body::-webkit-scrollbar-thumb:hover {
@@ -181,18 +178,17 @@
 }
 
 .mk-editor-right .markdown-body {
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
+  width             : 100%;
+  height            : 100%;
+  overflow-y        : scroll;
   /*background-color: rgb(251, 251, 251);*/
-  box-sizing: border-box;
-  padding: 30px;
-  // position: absolute;
-  // top: 0;
+  box-sizing        : border-box;
+  padding           : 30px;
+
 }
 
 .md-flowchart {
-  width: 80%;
+  width : 80%;
   margin: 0 auto;
 }
 
@@ -202,74 +198,83 @@
 
 .mk-editor-container .fullStyle,
 .fullStyle {
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0 !important;
-  position: fixed;
+  width     : 100%;
+  height    : 100%;
+  top       : 0;
+  left      : 0 !important;
+  position  : fixed;
   background: #fff;
-  border: 0;
-  z-index: 1000;
+  border    : 0;
+  z-index   : 1000;
 }
 
 .md-tip {
-  position: relative;
-  padding: 0.1rem 1.5rem;
-  border-left-width: 6px;
-  border-left-style: solid;
+  position                  : relative;
+  padding                   : 0.1rem 1.5rem;
+  border-left-width         : 6px;
+  border-left-style         : solid;
   border-bottom-right-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-
-  p {
-    margin: 12px 0;
-  }
-  &::before {
-    position: absolute;
-
-    width: 25px;
-    height: 25px;
-    left: -16px;
-    top: 12px;
-    box-sizing: border-box;
-  }
+  border-top-right-radius   : 0.25rem;
 }
+
+.md-tip p {
+  margin: 12px 0;
+}
+
+.md-tip::before {
+  position: absolute;
+
+  width     : 25px;
+  height    : 25px;
+  left      : -16px;
+  top       : 12px;
+  box-sizing: border-box;
+}
+
 
 .md-tip-info {
-  border-color: #007bff;
+  border-color    : #007bff;
   background-color: #f8f8f8;
-
-  &::before {
-    content: url("../../assets/info.svg");
-  }
 }
+
+.md-tip-info::before {
+  content: url("../../assets/info.svg");
+}
+
+
 .md-tip-warning {
-  border-color: #f4cd00;
+  border-color    : #f4cd00;
   background-color: #fff7d0;
-
-  &::before {
-    content: url("../../assets/warning.svg");
-  }
 }
 
-.md-tip-error,.md-tip-danger {
-  border-color: #f55;
+.md-tip-warning::before {
+  content: url("../../assets/warning.svg");
+}
+
+
+.md-tip-error,
+.md-tip-danger {
+  border-color    : #f55;
   background-color: #ffe6e6;
-
-  &::before {
-    content: url("../../assets/error.svg");
-  }
 }
+
+.md-tip-error::before,
+.md-tip-danger::before {
+  content: url("../../assets/error.svg");
+}
+
 
 .md-tip-success {
-  border-color: #42b983;
+  border-color    : #42b983;
   background-color: #f8f8f8;
-
-  &::before {
-    content: url("../../assets/dp.svg");
-  }
 }
 
- 
+.md-tip-success::before {
+  content: url("../../assets/dp.svg");
+}
+
+
+
 /** 预览打开、关闭动画 
 
 .mk-editor-right-animation-enter-active {

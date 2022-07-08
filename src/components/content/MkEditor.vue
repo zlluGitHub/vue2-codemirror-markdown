@@ -1,5 +1,5 @@
-<style lang="scss">
-@import "./index.scss";
+<style>
+@import "./index.css";
 </style>
 <template>
   <div
@@ -205,7 +205,7 @@ export default {
     theme: {
       type: String,
       default:
-        localStorage.getItem("theme") === null
+        localStorage.getItem("theme") 
           ? config.theme // "xq-light"  material
           : localStorage.getItem("theme"),
     },
@@ -348,7 +348,7 @@ export default {
         config[key] = this.config[key];
       }
     }
-    require(`codemirror/theme/${this.theme}.css`);
+    if (this.theme) require(`codemirror/theme/${this.theme}.css`);
     this.initLang();
   },
   mounted() {
@@ -392,7 +392,7 @@ export default {
         scrollPastEnd: true,
         autofocus: true,
         styleActiveLine: { nonEmpty: true },
-        // tabSize: 4,
+        // tabSize: 14,
         indentUnit: this.indentUnit,
         foldGutter: true,
         gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
@@ -431,7 +431,7 @@ export default {
           return;
         },
       });
-      this.getEditorDom().style.fontSize = (this.font.editor || 16) + "px";
+      // this.getEditorDom().style.fontSize = (this.font.editor || 16) + "px";
       if (that.value !== "") {
         that.editor.setValue(that.value);
         that.setMdValue();
