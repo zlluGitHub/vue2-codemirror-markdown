@@ -284,7 +284,7 @@ export default {
   mounted() {},
 };
 </script>
-<style lang="scss" scoped>
+<style scoped>
 #app {
   margin: 5%;
   height: 700px;
